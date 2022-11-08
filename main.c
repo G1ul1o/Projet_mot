@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-<<<<<<< HEAD
-=======
 struct s_cell
 {
     char *mot;
@@ -21,7 +19,7 @@ struct s_node
     char value;
     struct s_node   *lettres[26];   //appelle le pointeur[le numéro]
     t_std_list *pointeur;
-    int pointeur_occupe;
+    int nombre_forme_flechies;
 };
 
 typedef struct s_node t_node, *p_node;
@@ -31,8 +29,9 @@ typedef struct s_tree
     p_node root;
 } t_tree, *p_tree;
 
->>>>>>> be867e2 (Initial commit)
-int main() {
+
+int main()
+{
     printf("Hello, World!\n");
     return 0;
 }
