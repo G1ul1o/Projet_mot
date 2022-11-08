@@ -45,3 +45,29 @@ p_node CherchelettreRoot(t_tree pn,char lettre,int i)
 
     return NULL;
 }
+
+t_tree createfromEmptyTreeFromNode(char mot[35])
+{
+    t_tree ps;
+    ps=CreateEmptyTree();
+    ps.root[0] = Creearbre(ps.root[0],mot,0);
+    ps.nombre_pointeurs=1;
+    return ps;
+}
+
+t_tree createTreeFromNode(t_tree t,char mot[35])
+{
+    p_node temp;
+    temp= CherchelettreRoot(t,mot[0],0);
+    if (temp!=NULL)
+    {
+        temp= Creearbre(temp,mot,1);
+    }
+    else
+    {
+        t.root[t.nombre_pointeurs] = Creearbre(t.root[t.nombre_pointeurs],mot,0);
+        t.nombre_pointeurs+=1;
+    }
+
+    return t;
+}

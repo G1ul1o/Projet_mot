@@ -16,4 +16,8 @@ typedef struct s_tree
 t_tree CreateEmptyTree();
 
 p_node CherchelettreRoot(t_tree,char,int);
+
+t_tree createfromEmptyTreeFromNode(char[35]);
+
+t_tree createTreeFromNode(t_tree,char[35]);
 #endif //PROJET_MOT_TREE_H

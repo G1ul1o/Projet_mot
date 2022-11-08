@@ -20,4 +20,8 @@ typedef struct s_node t_node, *p_node;
 p_node createNode(char);
 
 p_node Cherchelettre(p_node,char,int);
+
+p_node Creearbre(p_node,char[35],int);
+
+
 #endif //PROJET_MOT_NODE_H
