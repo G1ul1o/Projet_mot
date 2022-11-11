@@ -12,7 +12,10 @@ p_node createNode(char lettre)
 
     nouv = (p_node)malloc(sizeof(t_node));
     nouv->value = lettre;
-    nouv->lettres[0]=NULL;
+    for (int i = 0; i < 26; ++i)
+    {
+        nouv->lettres[i]=NULL;
+    }
     nouv->nombre_pointeur=0;
     nouv->pointeur=NULL;
     nouv->nombre_forme_flechies=0;
@@ -27,14 +30,15 @@ p_node Cherchelettre(p_node pn,char lettre,int i)
     {
         return NULL;
     }
+
     if(pn->lettres[i]->value==lettre)
     {
         return pn->lettres[i] ;
     }
 
-    if(i+1< pn->nombre_pointeur)
+    if(i+1 <=pn->nombre_pointeur)
     {
-        temp= Cherchelettre(pn->lettres[i+1],lettre,i+1);
+        temp= Cherchelettre(pn,lettre,i+1);
         if(temp!=NULL)
         {
             return temp;
@@ -44,8 +48,6 @@ p_node Cherchelettre(p_node pn,char lettre,int i)
             return NULL;
         }
     }
-
-
     return NULL;
 }
 
@@ -82,38 +84,41 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot)
         }
         else
         {
-            t_std_list tempflechie=createt_std_listflechie();
-            FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\untitled9\\test2.txt", "r");
-            char flechie[30];
-            char base[30];
-            char formes[30];
-            int i=0;
-            int result=0;
-            int nombreflechie=0;
-            while(fscanf(dicofile,"%s\t%s\t%s",flechie, base, formes) != EOF) //EOF pour end of file et \t pour les tabulations
+            if(temp!=NULL)
             {
-                i=0;
-                while (base[i]!='\0')
+                t_std_list tempflechie=createt_std_listflechie();
+                FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\untitled9\\dico_10_lignes.txt", "r");
+                char flechie[30];
+                char base[30];
+                char formes[30];
+                int i=0;
+                int result=0;
+                int nombreflechie=0;
+                while(fscanf(dicofile,"%s\t%s\t%s",flechie, base, formes) != EOF) //EOF pour end of file et \t pour les tabulations
                 {
-                    if(base[i]==mot[i])
+                    i=0;
+                    while (base[i]!='\0')
                     {
-                        result+=1;
+                        if(base[i]==mot[i])
+                        {
+                            result+=1;
+                        }
+                        else
+                        {
+                            result-=1;
+                        }
+                        i+=1;
                     }
-                    else
+                    if (result==i)
                     {
-                        result-=1;
+                        tempflechie= ajoutlisteflechie(tempflechie,flechie,formes);
+                        nombreflechie+=1;
                     }
-                    i+=1;
+                    result=0;
                 }
-                if (result==i)
-                {
-                    tempflechie= ajoutlisteflechie(tempflechie,flechie,formes);
-                    nombreflechie+=1;
-                }
-                result=0;
+                pn->pointeur = tempflechie.head;
+                pn->nombre_forme_flechies=nombreflechie;
             }
-            pn->pointeur = tempflechie.head;
-            pn->nombre_forme_flechies=nombreflechie;
         }
     }
     else

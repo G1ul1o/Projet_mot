@@ -13,8 +13,6 @@ typedef struct s_tree
     int nombre_pointeurs;
 } t_tree, *p_tree;
 
-t_tree CreateEmptyTree();
-
 p_node CherchelettreRoot(t_tree,char,int);
 
 t_tree createfromEmptyTreeFromNode(char[35]);

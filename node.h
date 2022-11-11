@@ -9,7 +9,7 @@
 struct s_node
 {
     char value;
-    struct s_node   *lettres[26];   //appelle le pointeur[le numéro]
+    struct s_node *lettres[26];   //appelle le pointeur[le numéro]
     p_cell pointeur;
     int nombre_forme_flechies;
     int nombre_pointeur;
