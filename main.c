@@ -1,38 +1,88 @@
+#include <stdlib.h>
 #include <stdio.h>
+#include "tree.h"
 
-<<<<<<< HEAD
-=======
-struct s_cell
+int main()
 {
-    char *mot;
-    char *type;
-    struct s_cell *next;
-};
 
-typedef struct s_cell t_cell, *p_cell;
+    t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv;
+    FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
+    char flechie[35];
+    char base[35];
+    char formes[35];
+    char type[35];
+    int creation_arbrenom=0;
+    int creation_arbreadj=0;
+    int creation_arbreadv=0;
+    int creation_arbreverb=0;
 
-typedef struct s_std_list
-{
-    p_cell head;
-} t_std_list;
+    if (dicofile != NULL)
+    {
 
-struct s_node
-{
-    char value;
-    struct s_node   *lettres[26];   //appelle le pointeur[le numéro]
-    t_std_list *pointeur;
-    int pointeur_occupe;
-};
+        while(fscanf(dicofile,"%s\t%s\t%s", flechie,base,formes) != EOF) //EOF pour end of file et \t pour les tabulations
+        {
+            for (int j = 0; j < 3; ++j)
+            {
+                type[j]=formes[j];
+            }
+            if (type[0]=='N')
+            {
+                if (creation_arbrenom==0)
+                {
+                    arbre_nom=createfromEmptyTreeFromNode(base);
+                    creation_arbrenom++;
+                }
+                else
+                {
+                    arbre_nom= createTreeFromNode(arbre_nom,base);
+                }
+            }
+            else if (type[0]=='V')
+            {
+                if (creation_arbreverb==0)
+                {
+                    arbre_ver=createfromEmptyTreeFromNode(base);
+                    creation_arbreverb++;
+                }
+                else
+                {
+                    arbre_ver= createTreeFromNode(arbre_ver,base);
+                }
+            }
+            else if (type[0]=='A')
+            {
+                if (type[1]=='v')
+                {
+                    if (creation_arbreadv==0)
+                    {
+                        arbre_adv=createfromEmptyTreeFromNode(base);
+                        creation_arbreadv++;
+                    }
+                    else
+                    {
+                        arbre_adv= createTreeFromNode(arbre_adv,base);
+                    }
+                }
+                else
+                {
+                    if (creation_arbreadj==0)
+                    {
+                        arbre_adj=createfromEmptyTreeFromNode(base);
+                        creation_arbreadj++;
+                    }
+                    else
+                    {
+                        arbre_adj= createTreeFromNode(arbre_adj,base);
+                    }
+                }
 
-typedef struct s_node t_node, *p_node;
+            }
 
-typedef struct s_tree
-{
-    p_node root;
-} t_tree, *p_tree;
 
->>>>>>> be867e2 (Initial commit)
-int main() {
-    printf("Hello, World!\n");
+
+            printf("%s\n",base);
+        }
+    }
+    fclose(dicofile);
     return 0;
 }
