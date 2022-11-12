@@ -5,7 +5,7 @@
 int main()
 {
 
-    t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv;
+    t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv,arbre_abr,arbre_int;
     FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
     char flechie[35];
     char base[35];
@@ -15,6 +15,8 @@ int main()
     int creation_arbreadj=0;
     int creation_arbreadv=0;
     int creation_arbreverb=0;
+    int creation_arbreabr=0;
+    int creation_arbreint=0;
 
     if (dicofile != NULL)
     {
@@ -63,7 +65,7 @@ int main()
                         arbre_adv= createTreeFromNode(arbre_adv,base);
                     }
                 }
-                else
+                else if (type[1]=='j')
                 {
                     if (creation_arbreadj==0)
                     {
@@ -75,7 +77,31 @@ int main()
                         arbre_adj= createTreeFromNode(arbre_adj,base);
                     }
                 }
+                else
+                {
+                    if (creation_arbreabr==0)
+                    {
+                        arbre_abr=createfromEmptyTreeFromNode(base);
+                        creation_arbreabr++;
+                    }
+                    else
+                    {
+                        arbre_abr= createTreeFromNode(arbre_abr,base);
+                    }
+                }
 
+            }
+            else if (type[0]=='I')
+            {
+                if (creation_arbreint==0)
+                {
+                    arbre_int=createfromEmptyTreeFromNode(base);
+                    creation_arbreint++;
+                }
+                else
+                {
+                    arbre_int= createTreeFromNode(arbre_int,base);
+                }
             }
 
 
