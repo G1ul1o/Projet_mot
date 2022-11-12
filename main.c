@@ -4,9 +4,8 @@
 
 int main()
 {
-
     t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv;
-    FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
+    FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mots\\dico_10_lignes.txt", "r");
     char flechie[35];
     char base[35];
     char formes[35];
@@ -80,9 +79,42 @@ int main()
 
 
 
-            printf("%s\n",base);
+            //printf("%s\n",base);
         }
+
     }
     fclose(dicofile);
+
+    int choix = 0;
+    printf("Bonjours et bienvenue, veuillez choisir ce que vous voulez faire :\n");
+    while(choix != 4)
+    {
+        printf("Que voulez vous faire ?\n"
+               "1 : Verifier si un mot existe\n"
+               "2 : Generer une phrase\n"
+               "3 : Chercher une forme flechie\n"
+               "4 : Quitter\n");
+        scanf("%d",&choix);
+        if (choix == 1)
+        {
+            printf("Veuillez saisir un mot : \n");
+            char test[35];
+            scanf("%s",&test);
+            p_node montemp = CherchelettreRoot(arbre_nom,test[0],0);
+            compteur(montemp,test);
+        }
+        else if (choix == 2)
+            printf("On sait pas encore faire ce truc, deso pas deso\n");
+        else if (choix == 3)
+            printf("On sait pas encore faire ce truc, deso pas deso\n");
+    }
+
+
+
+
+
+
+
+
     return 0;
-}
+}}
