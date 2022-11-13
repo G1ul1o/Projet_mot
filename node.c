@@ -49,8 +49,6 @@ p_node Cherchelettre(p_node pn,char lettre,int i)
     return NULL;
 }
 
-
-
 int trouver_mot(p_node pn, char cara[35], int numero_lettre) {
     if (cara[numero_lettre] == '\0')
     {
@@ -72,11 +70,7 @@ int trouver_mot(p_node pn, char cara[35], int numero_lettre) {
     }
 }
 
-
-
-
-
-void compteur(p_node pn, char cara[35])
+int compteur(p_node pn, char cara[35])
 {
     int j = 0;
     while (cara[j] != '\0')    //on cherche la taille du mot donné
@@ -84,32 +78,19 @@ void compteur(p_node pn, char cara[35])
         j++;
     }
     int compteur=trouver_mot(pn,cara,1);
-    if (compteur == j-1) { //on regarde si nombre de lettre trouvées = nombre de lettres attendues. Si égale alors le mot trouvé est bon, sinon c'est faux
-        printf("Le mot existe\n");
+    if (compteur == j-1)     //on regarde si nombre de lettre trouvées = nombre de lettres attendues. Si égale alors le mot trouvé est bon, sinon c'est faux
+    {
+        return 1;
     }
     else {
-        printf("Le mot existe pas\n");
+        return 0;
     }
 
 }
 
-
-
-
-
-/*char* type_mot(char cara[35])
-{
-    int continuer=1;
-    while (continuer==1)
-    {
-
-    }
-}*/
-
-
 p_node Creearbre(p_node pn,char mot[35],int indicemot)
 {
-    p_node temp,temp2;
+    p_node temp=NULL,temp2;
 
     if(pn!=NULL)
     {
@@ -140,7 +121,7 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot)
         }
         else
         {
-            if(temp!=NULL)
+            if(temp==NULL)
             {
                 t_std_list tempflechie=createt_std_listflechie();
                 FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mots\\dico_10_lignes.txt", "r");

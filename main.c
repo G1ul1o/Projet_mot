@@ -87,26 +87,28 @@ int main()
 
     int choix = 0;
     printf("Bonjours et bienvenue, veuillez choisir ce que vous voulez faire :\n");
-    while(choix != 4)
+    while(choix != 4) //permet de stopper le programme quand le chiffre est saisie
     {
-        printf("Que voulez vous faire ?\n"
-               "1 : Verifier si un mot existe\n"
-               "2 : Generer une phrase\n"
-               "3 : Chercher une forme flechie\n"
-               "4 : Quitter\n");
-        scanf("%d",&choix);
-        if (choix == 1)
+        do
         {
-            printf("Veuillez saisir un mot : \n");
-            char test[35];
-            scanf("%s",&test);
-            p_node montemp = CherchelettreRoot(arbre_nom,test[0],0);
-            compteur(montemp,test);
-        }
-        else if (choix == 2)
-            printf("On sait pas encore faire ce truc, deso pas deso\n");
-        else if (choix == 3)
-            printf("On sait pas encore faire ce truc, deso pas deso\n");
+            printf("Que voulez vous faire ?\n"
+                   "1 : Verifier si un mot existe\n"
+                   "2 : Generer une phrase\n"
+                   "3 : Chercher une forme flechie\n"
+                   "4 : Quitter\n");
+            scanf("%d", &choix);
+            if (choix == 1) {
+                printf("Veuillez saisir un mot : \n");
+                char lemot[35];
+                scanf("%s", &lemot); //on demande à l'utilisateur de saisir un mot
+                type_mot(lemot, arbre_nom, arbre_adj, arbre_ver, arbre_adv); //on fait entrer le mot saisie dans la fonction
+
+            }
+            else if (choix == 2)
+                printf("On sait pas encore faire ce truc, deso pas deso\n");
+            else if (choix == 3)
+                printf("On sait pas encore faire ce truc, deso pas deso\n");
+        }while(choix!=(1,2,3,4)); //saisir sécurisée
     }
 
 
