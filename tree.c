@@ -72,8 +72,6 @@ t_tree createTreeFromNode(t_tree t,char mot[35])
     return t;
 }
 
-
-
 void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_ver, t_tree arbre_adv)
 {
     int lecompteur = 0;
@@ -90,38 +88,40 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     }
 
     montemp1 = CherchelettreRoot(arbre_adj,lemot[0],0);
-    lecompteur=0; //on remet le compteur à 0 pour refaire les tests
+    int lecompteur1=0; //on remet le compteur à 0 pour refaire les tests
     if (montemp1!=NULL)
     {
-        lecompteur = compteur(montemp1, lemot);
-        if (lecompteur==1)
+        lecompteur1 = compteur(montemp1, lemot);
+        if (lecompteur1==1)
         {
             printf("Le mot existe et est un adjectif.\n");
+            return;
         }
     }
     montemp2 = CherchelettreRoot(arbre_ver,lemot[0],0);
-    lecompteur=0;
+    int lecompteur2=0;
     if (montemp2!=NULL)
     {
-        printf("La premiere lettre existe\n");
-        lecompteur = compteur(montemp2, lemot);
-        printf("Le compteur est : %d\n",lecompteur);
-        if (lecompteur==1)
+        lecompteur2 = compteur(montemp2, lemot);
+        if (lecompteur2==1)
         {
             printf("Le mot existe et est un verbe.\n");
+            return;
         }
     }
     montemp2 = CherchelettreRoot(arbre_adv,lemot[0],0);
-    lecompteur=0;
+    int lecompteur3=0;
      if (montemp2!=NULL)
     {
-        lecompteur = compteur(montemp2, lemot);
-        if (lecompteur==1)
+        lecompteur3 = compteur(montemp2, lemot);
+        if (lecompteur3==1)
         {
             printf("Le mot existe et est un adverbe.\n");
+            return;
         }
     }
-    if (lecompteur==0)
+
+    if ((lecompteur==0)&&(lecompteur1==0)&&(lecompteur2==0)&&(lecompteur3==0))
     {
         printf("Le mot n'existe pas.\n");
     }

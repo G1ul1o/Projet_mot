@@ -5,7 +5,7 @@
 int main()
 {
     t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv;
-    FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mots\\dico_10_lignes.txt", "r");
+    FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mot\\dico_10_lignes.txt", "r");
     char flechie[35];
     char base[35];
     char formes[35];
@@ -17,7 +17,6 @@ int main()
 
     if (dicofile != NULL)
     {
-
         while(fscanf(dicofile,"%s\t%s\t%s", flechie,base,formes) != EOF) //EOF pour end of file et \t pour les tabulations
         {
             for (int j = 0; j < 3; ++j)
@@ -96,13 +95,12 @@ int main()
                    "2 : Generer une phrase\n"
                    "3 : Chercher une forme flechie\n"
                    "4 : Quitter\n");
-            //scanf("%d", &choix);
+            scanf("%d", &choix);
             choix=1;
             if (choix == 1) {
                 printf("Veuillez saisir un mot : \n");
-                //char lemot[35];
-                char lemot[]="abjectement";
-                //scanf("%s", &lemot); //on demande à l'utilisateur de saisir un mot
+                char lemot[35];
+                scanf("%s", &lemot); //on demande à l'utilisateur de saisir un mot
                 type_mot(lemot, arbre_nom, arbre_adj, arbre_ver, arbre_adv); //on fait entrer le mot saisie dans la fonction
 
             }
