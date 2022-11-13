@@ -50,7 +50,7 @@ int main()
             }
             else if (type[0]=='A')
             {
-                if (type[1]=='v')
+                if (type[2]=='v')
                 {
                     if (creation_arbreadv==0)
                     {
@@ -96,11 +96,13 @@ int main()
                    "2 : Generer une phrase\n"
                    "3 : Chercher une forme flechie\n"
                    "4 : Quitter\n");
-            scanf("%d", &choix);
+            //scanf("%d", &choix);
+            choix=1;
             if (choix == 1) {
                 printf("Veuillez saisir un mot : \n");
-                char lemot[35];
-                scanf("%s", &lemot); //on demande à l'utilisateur de saisir un mot
+                //char lemot[35];
+                char lemot[]="abjectement";
+                //scanf("%s", &lemot); //on demande à l'utilisateur de saisir un mot
                 type_mot(lemot, arbre_nom, arbre_adj, arbre_ver, arbre_adv); //on fait entrer le mot saisie dans la fonction
 
             }

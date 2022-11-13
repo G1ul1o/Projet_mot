@@ -82,33 +82,23 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     montemp1 = CherchelettreRoot(arbre_nom,lemot[0],0); //vérifier si la première lettre est dans un arbre (on le fait a chaque fois)
     if (montemp1!=NULL) //pour éviter que la fonction se fasse si la première lettre n'est pas dans un arbre (on le fait à chaque fois)
     {
-        //printf("La premiere lettre existe\n");
         lecompteur = compteur(montemp1, lemot); //assigne a lecompteur ce que retourne compteur
         if (lecompteur==1) //si la fonction compteur retourne 1
         {
             printf("Le mot existe et est un nom.\n");
-            //return;
         }
     }
-    //on refait de même pour la suite avec les autres arbres
-    //printf("1\n");
 
     montemp1 = CherchelettreRoot(arbre_adj,lemot[0],0);
     lecompteur=0; //on remet le compteur à 0 pour refaire les tests
     if (montemp1!=NULL)
     {
-        //printf("La premiere lettre existe\n");
-
         lecompteur = compteur(montemp1, lemot);
         if (lecompteur==1)
         {
             printf("Le mot existe et est un adjectif.\n");
-            //return;
         }
     }
-    //printf("2\n");
-
-
     montemp2 = CherchelettreRoot(arbre_ver,lemot[0],0);
     lecompteur=0;
     if (montemp2!=NULL)
@@ -119,28 +109,21 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
         if (lecompteur==1)
         {
             printf("Le mot existe et est un verbe.\n");
-            //return;
         }
     }
-    //printf("3\n");
-
-
-    /*montemp = CherchelettreRoot(arbre_adv,lemot[0],0);
+    montemp2 = CherchelettreRoot(arbre_adv,lemot[0],0);
     lecompteur=0;
-     if (montemp!=NULL)
+     if (montemp2!=NULL)
     {
-        lecompteur = compteur(montemp, lemot);
+        lecompteur = compteur(montemp2, lemot);
         if (lecompteur==1)
         {
             printf("Le mot existe et est un adverbe.\n");
-            return;
         }
-    }*/
+    }
     if (lecompteur==0)
     {
         printf("Le mot n'existe pas.\n");
-        //return;
     }
 
-    //return;
 }
