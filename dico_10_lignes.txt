@@ -8,3 +8,4 @@ stabilisant	stabilisant	Adj:Mas+SG
 stabilisant	stabilisant	Nom:Mas+SG
 stabilisant	stabiliseras	Ver:PPre
 stabilisassent	stabiliserape	Ver:SImp+PL+P3
+abjectement	abjectement	Adv

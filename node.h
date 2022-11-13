@@ -8,6 +8,7 @@ struct s_node
     struct s_node *lettres[26];   //appelle le pointeur[le numéro]
     p_cell pointeur;
     int nombre_forme_flechies;
+    int fin_mot;
     int nombre_pointeur;
 };
 
@@ -21,7 +22,8 @@ p_node Creearbre(p_node,char[35],int);
 
 int trouver_mot(p_node pn, char* cara, int numero_lettre);
 
-void compteur(p_node pn, char cara[35]);
+int compteur(p_node pn, char cara[35]);
+
 
 
 #endif //PROJET_MOT_NODE_H
