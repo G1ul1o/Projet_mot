@@ -8,6 +8,7 @@ struct s_node
     struct s_node *lettres[26];   //appelle le pointeur[le numéro]
     p_cell pointeur;
     int nombre_forme_flechies;
+    int fin_mot;
     int nombre_pointeur;
 };
 
