@@ -95,7 +95,6 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
         if (lecompteur1==1)
         {
             printf("Le mot existe et est un adjectif.\n");
-            return;
         }
     }
     montemp2 = CherchelettreRoot(arbre_ver,lemot[0],0);
@@ -106,7 +105,6 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
         if (lecompteur2==1)
         {
             printf("Le mot existe et est un verbe.\n");
-            return;
         }
     }
     montemp2 = CherchelettreRoot(arbre_adv,lemot[0],0);
@@ -117,7 +115,6 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
         if (lecompteur3==1)
         {
             printf("Le mot existe et est un adverbe.\n");
-            return;
         }
     }
 
