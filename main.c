@@ -5,7 +5,7 @@
 int main()
 {
     t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv;
-    FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mots\\dico_10_lignes.txt", "r");
+    FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mot\\dico_10_lignes.txt", "r");
     char flechie[35];
     char base[35];
     char formes[35];
@@ -17,7 +17,6 @@ int main()
 
     if (dicofile != NULL)
     {
-
         while(fscanf(dicofile,"%s\t%s\t%s", flechie,base,formes) != EOF) //EOF pour end of file et \t pour les tabulations
         {
             for (int j = 0; j < 3; ++j)
@@ -50,7 +49,7 @@ int main()
             }
             else if (type[0]=='A')
             {
-                if (type[1]=='v')
+                if (type[2]=='v')
                 {
                     if (creation_arbreadv==0)
                     {
@@ -97,6 +96,7 @@ int main()
                    "3 : Chercher une forme flechie\n"
                    "4 : Quitter\n");
             scanf("%d", &choix);
+            choix=1;
             if (choix == 1) {
                 printf("Veuillez saisir un mot : \n");
                 char lemot[35];

@@ -1,3 +1,4 @@
+abjectement    abjectement    Adv
 stabilimetre	stabilimetre	Nom:Mas+SG
 stabilisaient	stabiliser	Ver:IImp+PL+P3
 stabilisais	stabiliser	Ver:IImp+SG+P1:IImp+SG+P2
@@ -8,4 +9,3 @@ stabilisant	stabilisant	Adj:Mas+SG
 stabilisant	stabilisant	Nom:Mas+SG
 stabilisant	stabiliseras	Ver:PPre
 stabilisassent	stabiliserape	Ver:SImp+PL+P3
-abjectement	abjectement	Adv

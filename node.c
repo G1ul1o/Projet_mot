@@ -124,7 +124,7 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot)
             if(temp==NULL)
             {
                 t_std_list tempflechie=createt_std_listflechie();
-                FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mots\\dico_10_lignes.txt", "r");
+                FILE* dicofile= fopen("C:\\Users\\theot\\CLionProjects\\Projet_mot\\dico_10_lignes.txt", "r");
                 char flechie[30];
                 char base[30];
                 char formes[30];
