@@ -20,6 +20,7 @@ char* extractinatorbase(t_tree tree){
     return mot;
 }
 
+
 char* miniextractinatorbase(p_node pn, char* mot, int i) {
     int nb_enfant, random;
     if (pn->nombre_pointeur == 0) {
@@ -67,6 +68,7 @@ p_cell forme_flechie(t_tree tree, char* base){
     return flechies;
 }
 
+
 char** temps (p_cell forme){
     char* info=forme->type;
     char** all_type;
@@ -85,6 +87,7 @@ char** temps (p_cell forme){
     return all_temps;
 }
 
+
 char** plu_sing(p_cell forme) {
     char *info = forme->type;
     char **all_type;
@@ -96,7 +99,7 @@ char** plu_sing(p_cell forme) {
     while (all_type[i][0] != '~') {
         char **temp;
         temp = secateurstring(all_type[i], '+');
-        if (temp[0]=="PPas") {
+        if (temp[0][3] == 's') {
             all_plu[i] = temp[2];
         }else
             all_plu[i] = temp[1];
@@ -106,25 +109,43 @@ char** plu_sing(p_cell forme) {
     return all_plu;
 }
 
+
 char** personne(p_cell forme){
     char *info = forme->type;
     char **all_type;
     char **all_per = (char **) malloc(sizeof(char *));
-
     all_type = secateurstring(info, ':');
     int i = 0;
     int cpt = 0;
     while (all_type[i][0] != '~') {
         char **temp;
         temp = secateurstring(all_type[i], '+');
-        if (temp[0]=="PPas") {
-            all_per[i] = temp[3];
-        }else
+        if (temp[0][3] == 's') {
+            all_per[i] = "no_pers";
+        } else
             all_per[i] = temp[2];
         i++;
     }
-    all_per[i]="~";
+    all_per[i] = "~";
     return all_per;
+}
+
+
+char* genre(p_cell forme){
+    char *info = forme->type;
+    char * genre = (char *) malloc(sizeof(char ));
+    int i = 0;
+    int cpt = 0;
+    while (info[i] != '\0') {
+        char **temp;
+        temp = secateurstring(info, '+');
+        if (temp[0][3] == 's') {
+            genre = temp[1];
+        } else
+            genre = temp[0];
+        i++;
+    }
+    return genre;
 }
 
 
@@ -148,13 +169,9 @@ char** secateurstring(char* string,char delim){
         }
         i++;
     }
-    if (cpt==0){
-        temp[j]='\0';
-        output[cpt]=temp;
-        temp= (char *)malloc(sizeof (char));
-        j=0;
-        cpt++;
-    }
+    temp[j]='\0';
+    output[cpt]=temp;
+    cpt++;
     output[cpt]="~";
     return output;
 }
