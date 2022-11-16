@@ -92,32 +92,8 @@ int main() {
         }while(choix!=(1,2,3,4)); //saisir sécurisée
     }*/
 
-    /*char* basique = extractinatorbase(arbre_ver);
-    p_cell flechies = forme_flechie(arbre_ver, basique);
-    printf("\n%s -> %s",flechies->mot, flechies->type);
-    char** temp= temps(flechies);*/
 
-    char *info = "PPas+Mas+PL";
-    char **all_type;
-    char **all_per = (char **) malloc(sizeof(char *));
-
-    all_type = secateurstring(info, ':');
-    int i = 0;
-    int cpt = 0;
-    while (all_type[i][0] != '~') {
-        char **temp;
-        temp = secateurstring(all_type[i], '+');
-        if (temp[0] == "PPas") {
-            all_per[i] = temp[3];
-        } else
-            all_per[i] = temp[2];
-        i++;
-    }
-    all_per[i] = "~";  //probleme d'indentation qqpart : all_per[0]="~"
-    i = 0;
-    while (all_per[i][0] != '~') {
-        printf("\n%s",all_per[i]);
-        i++;
-    }
+    char* test =type1(arbre_nom,arbre_ver,arbre_adj);
+    printf("%s",test);
     return 0;
 }

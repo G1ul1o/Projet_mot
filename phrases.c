@@ -8,6 +8,7 @@
 #include "phrases.h"
 
 
+
 char* extractinatorbase(t_tree tree){
     srand((unsigned)time(NULL));
     char* mot = (char *)malloc(sizeof (char));
@@ -28,7 +29,7 @@ char* miniextractinatorbase(p_node pn, char* mot, int i) {
         mot[i+1]='\0';
         return mot;
     }
-    if (pn->nombre_forme_flechies != 0 && pn->nombre_pointeur != 0) {
+    if (pn->fin_mot != 0 && pn->nombre_pointeur != 0) {
         int decideur = rand() % 2;
         if (decideur == 0) {
             mot[i]=pn->value;
@@ -149,6 +150,114 @@ char* genre(p_cell forme){
 }
 
 
+char* type1(t_tree nom, t_tree vb, t_tree adj) {
+    srand((unsigned)time(NULL));
+    char *nom1;
+    char *nom2;
+    char *verbe;
+    char *adjectif;
+    char *phrase = NULL;
+    nom1 = extractinatorbase(nom);
+    nom2 = extractinatorbase(nom);
+    verbe = extractinatorbase(vb);
+    adjectif = extractinatorbase(adj);
+    p_cell verbefl = forme_flechie(vb, verbe);
+    p_cell adjectif_fl = forme_flechie(adj, adjectif);
+    p_cell nom1fl = forme_flechie(nom, nom1);
+    p_cell nom2fl = forme_flechie(nom, nom2);
+
+
+    int i = 1;
+    if (nom1fl!=NULL){
+        while (i != 0) {
+            if (nom1fl->next==NULL) {
+                i = 0;
+            }else {
+                nom1fl = nom1fl->next;
+                i = rand() % 2;
+            }
+        }
+        nom1 = nom1fl->mot;
+    }
+    i=1;
+    if (nom2fl!=NULL){
+        while (i != 0) {
+            if (nom1fl->next==NULL) {
+                i = 0;
+            }else {
+                nom1fl = nom1fl->next;
+                i = rand() % 2;
+            }
+        }
+        nom2 = nom2fl->mot;
+    }
+
+    char** nb_nom1=plu_sing(nom1fl);
+    char* genre_nom1= genre(nom1fl);
+    char** nb_nom2=plu_sing(nom2fl);
+    char* genre_nom2= genre(nom2fl);
+
+    char** nb_verbe;
+    char** per_verbe;
+    char* temp;
+    verbe="~";
+
+    do{
+        nb_verbe= plu_sing(verbefl);
+        per_verbe= personne(verbefl);
+        int j=0;
+        while (nb_verbe[j][0]!='~'){
+            if ((nb_verbe[j][0]==nb_nom1[0][0]) && (per_verbe[j][1]=='3')){
+                temp=verbefl->mot;
+                i = rand() % 3;
+                if (i!=0)
+                    verbe=verbefl->mot;
+            }
+            j++;
+        }
+        verbefl=verbefl->next;
+    } while (verbefl->next!=NULL);
+    if (verbe[0]=='~')
+        verbe=temp;
+
+    char* genre_adj;
+    char** nb_adj;
+    do{
+        genre_adj= genre(adjectif_fl);
+        nb_adj= plu_sing(adjectif_fl);
+        if ((genre_adj[0]==genre_nom1[0]) && (nb_adj[0][0]==nb_nom1[0][0])){
+            adjectif=adjectif_fl->mot;
+        }
+        adjectif_fl=adjectif_fl->next;
+    } while (adjectif_fl->next!=NULL);
+
+
+    if (nb_nom1[0][0]=='P'){
+        phrase=concatenation("Les", nom1);
+    }else if (genre_nom1[0]=='M'){
+        phrase=concatenation("Le", nom1);
+    }else if (genre_nom1[0]=='F'){
+        phrase=concatenation("La", nom1);
+    }
+    phrase= concatenation(phrase,adjectif);
+    phrase= concatenation(phrase, verbe);
+
+    if (nb_nom2[0][0]=='P'){
+        phrase=concatenation(phrase, "les");
+        phrase=concatenation(phrase, nom2);
+    }else if (genre_nom2[0]=='M'){
+        phrase=concatenation(phrase, "le");
+        phrase=concatenation(phrase, nom2);
+    }else if (genre_nom2[0]=='F'){
+        phrase=concatenation(phrase, "la");
+        phrase=concatenation(phrase, nom2);
+    }
+
+
+    return phrase;
+}
+
+
 char** secateurstring(char* string,char delim){
     char** output=(char **)malloc(sizeof (char*));
     char* temp= (char *)malloc(sizeof (char));
@@ -173,5 +282,21 @@ char** secateurstring(char* string,char delim){
     output[cpt]=temp;
     cpt++;
     output[cpt]="~";
+    return output;
+}
+
+char* concatenation(char* bout1, char* bout2){
+    int i;
+    char *output = (char *)malloc(sizeof (char));
+    for (i=0;bout1[i]!='\0';i++){
+        output[i]=bout1[i];
+    }
+    output[i]=' ';
+    i++;
+    for (int j=0;bout2[j]!='\0';j++, i++){
+        output[i]=bout2[j];
+    }
+    output[i]='\0';
+
     return output;
 }

@@ -21,14 +21,7 @@ p_cell createCellflechie(char mot[30],char type[50])
     int j=0;
     while(type[i]!='\0')
     {
-        if(type[i]!= '+')
-        {
-            nouv->type[j]=type[i];
-        }
-        else
-        {
-            nouv->type[j]=type[i];
-        }
+        nouv->type[j]=type[i];
         i++;
         j++;
     }
