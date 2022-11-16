@@ -1,7 +1,6 @@
 //
-// Created by maxim on 12/11/2022.
+// Created by giuga on 16/11/2022.
 //
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -24,7 +23,7 @@ char* extractinatorbase(t_tree tree){
 
 char* miniextractinatorbase(p_node pn, char* mot, int i) {
     int nb_enfant, random;
-    if (pn->nombre_pointeur == 0) {
+    if (pn->fin_mot != 0) {
         mot[i]=pn->value;
         mot[i+1]='\0';
         return mot;
@@ -33,6 +32,7 @@ char* miniextractinatorbase(p_node pn, char* mot, int i) {
         int decideur = rand() % 2;
         if (decideur == 0) {
             mot[i]=pn->value;
+            mot[i+1]='\0';
             return mot;
         } else {
             nb_enfant = pn->nombre_pointeur;
@@ -90,29 +90,48 @@ char** temps (p_cell forme){
 
 
 char** plu_sing(p_cell forme) {
+    //printf("mot a test plusing %s\n",forme->mot);
     char *info = forme->type;
-    char **all_type;
+    //printf("type plu_sing %s\n",info);
+    //printf("plu_sing debut\n");
+    char **all_type=(char **) malloc(sizeof(char *));
     char **all_plu = (char **) malloc(sizeof(char *));
+    char **temp=NULL;
 
     all_type = secateurstring(info, ':');
+    //printf("all_type %s\n",all_type[0]);
+
     int i = 0;
     int cpt = 0;
-    while (all_type[i][0] != '~') {
-        char **temp;
+    while (all_type[i][0] != '~')
+    {
+        //printf("plu_sing debut boucle\n");
+
+
         temp = secateurstring(all_type[i], '+');
-        if (temp[0][3] == 's') {
+        //printf("temp apres secateur %s\n",temp[1]);
+
+        if (temp[0][2] == 'a') {
             all_plu[i] = temp[2];
         }else
             all_plu[i] = temp[1];
+        //printf("char all_type fini %c\n",all_type[i][0]);
         i++;
+        //printf("plu_sing fin boucle\n");
+
     }
     all_plu[i]="~";
+    //printf("plu_sing fin\n");
+    i=0;
+    while (all_plu[i][0]!='~')
+        //printf("%s\n",all_plu[i++]);
     return all_plu;
 }
 
 
 char** personne(p_cell forme){
     char *info = forme->type;
+
     char **all_type;
     char **all_per = (char **) malloc(sizeof(char *));
     all_type = secateurstring(info, ':');
@@ -152,10 +171,10 @@ char* genre(p_cell forme){
 
 char* type1(t_tree nom, t_tree vb, t_tree adj) {
     srand((unsigned)time(NULL));
-    char *nom1;
-    char *nom2;
-    char *verbe;
-    char *adjectif;
+    char *nom1=(char *) malloc(sizeof(char ));
+    char *nom2=(char *) malloc(sizeof(char ));
+    char *verbe=(char *) malloc(sizeof(char ));
+    char *adjectif=(char *) malloc(sizeof(char ));
     char *phrase = NULL;
     nom1 = extractinatorbase(nom);
     nom2 = extractinatorbase(nom);
@@ -197,26 +216,48 @@ char* type1(t_tree nom, t_tree vb, t_tree adj) {
     char** nb_nom2=plu_sing(nom2fl);
     char* genre_nom2= genre(nom2fl);
 
-    char** nb_verbe;
-    char** per_verbe;
-    char* temp;
+    char** nb_verbe=(char **) malloc(sizeof(char*));
+    char** per_verbe=(char**) malloc(sizeof(char*));
+    char* temp=(char *) malloc(sizeof(char ));
     verbe="~";
 
     do{
+        //printf("pipi\n");
         nb_verbe= plu_sing(verbefl);
+        //printf("%s\n",verbefl->mot);
         per_verbe= personne(verbefl);
+        //printf("dodo\n");
+
         int j=0;
-        while (nb_verbe[j][0]!='~'){
+        while (nb_verbe[j][0]!='~')
+        {
+
+            ////printf("%c\n",nb_verbe[1][0]);
             if ((nb_verbe[j][0]==nb_nom1[0][0]) && (per_verbe[j][1]=='3')){
                 temp=verbefl->mot;
+                //printf("%c\n",nb_verbe[j][0]);
                 i = rand() % 3;
                 if (i!=0)
+                {
                     verbe=verbefl->mot;
+                    //printf("%s\n",verbe);
+
+                }
             }
+            //printf("pas dans le 3\n");
             j++;
+            //printf("crash \n");
         }
+        //printf("caca\n");
+        if (verbefl->next!=NULL) {
+            //printf("verbfl next %s\n", verbefl->next->mot);
+        } else
+            //printf("NULLLLLLLL\n");
         verbefl=verbefl->next;
-    } while (verbefl->next!=NULL);
+        //printf("caca2\n");
+    } while (verbefl!=NULL);
+
+    //printf("mange t mort\n");
     if (verbe[0]=='~')
         verbe=temp;
 
@@ -230,6 +271,7 @@ char* type1(t_tree nom, t_tree vb, t_tree adj) {
         }
         adjectif_fl=adjectif_fl->next;
     } while (adjectif_fl->next!=NULL);
+    //printf("adj crée\n");
 
 
     if (nb_nom1[0][0]=='P'){
@@ -240,7 +282,9 @@ char* type1(t_tree nom, t_tree vb, t_tree adj) {
         phrase=concatenation("La", nom1);
     }
     phrase= concatenation(phrase,adjectif);
+    //printf("%s\n",phrase);
     phrase= concatenation(phrase, verbe);
+    //printf("%s\n",phrase);
 
     if (nb_nom2[0][0]=='P'){
         phrase=concatenation(phrase, "les");
@@ -288,6 +332,7 @@ char** secateurstring(char* string,char delim){
 char* concatenation(char* bout1, char* bout2){
     int i;
     char *output = (char *)malloc(sizeof (char));
+
     for (i=0;bout1[i]!='\0';i++){
         output[i]=bout1[i];
     }

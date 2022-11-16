@@ -21,5 +21,6 @@ char* type3(t_tree, t_tree, t_tree); // forme le type de phrase : Jean-Louis le 
 
 char** secateurstring(char*,char);
 char* concatenation(char*, char*);
+p_node conjugaison2(char* phrase_base, t_tree nom, t_tree vb, t_tree adj);
 
 #endif //PROJET_MOT_PHRASES_H
