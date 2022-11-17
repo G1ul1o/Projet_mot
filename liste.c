@@ -38,7 +38,7 @@ void showlist(t_std_list2 liste_mot)
     }
 }
 
-t_std_list ajoutlisteflechie(t_std_list liste_mot,char mot[30],char type[30])
+t_std_list ajoutlisteflechie(t_std_list liste_mot,char mot[30],char type[50])
 {
     p_cell nouv= createCellflechie(mot,type);
     nouv->next = liste_mot.head;
