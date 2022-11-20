@@ -71,7 +71,6 @@ t_tree createTreeFromNode(t_tree t,char mot[35],char type[35])
 
     return t;
 }
-
 void recherche_flechie(t_tree arbre, char mot[25])
 {
     int i = 0, taille_mot = 0;
@@ -173,6 +172,7 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     }
     montemp2 = CherchelettreRoot(arbre_adv,lemot[0],0);
     int lecompteur3=0;
+
     if (montemp2!=NULL)
     {
         lecompteur3 = compteur(montemp2, lemot);
@@ -186,5 +186,4 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     {
         printf("Le mot n'existe pas.\n");
     }
-
 }

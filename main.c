@@ -64,7 +64,6 @@ int main()
                 }
 
             }
-            //printf("%s\n",base);
         }
 
     }
@@ -73,7 +72,7 @@ int main()
     int choix = 0,choix2=0;
 
     printf("Bonjours et bienvenue, veuillez choisir ce que vous voulez faire :\n");
-
+    
     while(choix != 4) //permet de stopper le programme quand le chiffre est saisie
     {
         do
@@ -152,5 +151,7 @@ int main()
         }while(choix!=(1,2,3,4)); //saisir sécurisée
     }
 
+    char* test =type1(arbre_nom,arbre_ver,arbre_adj);
+    printf("%s",test);
     return 0;
 }

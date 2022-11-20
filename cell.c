@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "cell.h"
 
-p_cell createCellflechie(char mot[30],char type[30])
+p_cell createCellflechie(char mot[30],char type[50])
 {
     p_cell nouv;
     nouv = (p_cell)malloc(sizeof(t_cell));

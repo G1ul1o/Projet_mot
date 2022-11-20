@@ -89,6 +89,7 @@ int compteur(p_node pn, char cara[35])
 
 }
 
+
 p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
 {
     p_node temp=NULL,temp2;

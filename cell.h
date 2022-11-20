@@ -7,7 +7,7 @@
 struct s_cell
 {
     char mot[30];
-    char type[30];
+    char type[50];
     struct s_cell *next;
 };
 

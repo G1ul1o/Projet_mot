@@ -36,6 +36,4 @@ int compteur(p_node pn, char cara[35]);
 
 p_node trouver_flechie(p_node pn, char mot[25]);
 
-
-
 #endif //PROJET_MOT_NODE_H
