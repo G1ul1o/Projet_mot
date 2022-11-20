@@ -1,24 +1,25 @@
-//
-// Created by giuga on 16/11/2022.
-//
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include "phrase.h"
 #include "liste.h"
 
-char* extractinatorbase(t_tree tree){
+//permet d'extraire un noeud depuis le root, il prend en paramètre l'arbre
+char* extractinatorbase(t_tree tree)
+{
     char* mot = (char *)malloc(sizeof (char));
 
     int nb_enfant = tree.nombre_pointeurs;
-    int random= rand()%nb_enfant;
+
+    int random= rand()%nb_enfant; //choix aléatoire d'une lettre depuis le root
+
     p_node temp=tree.root[random];
     mot[0]=temp->value;
     mot = miniextractinatorbase(temp, mot, 0);
     return mot;
 }
 
+//permet d'extraire un mot depuis l'arbre,il prend en paramètre le noeud, le mot et l'indice
 char* miniextractinatorbase(p_node pn, char* mot, int i) {
     int nb_enfant, random;
 
@@ -62,53 +63,64 @@ char* miniextractinatorbase(p_node pn, char* mot, int i) {
     }
 }
 
+//permet d'extraire la cellule "head" de la liste du pointeur noeud,il prend en paramètre l'arbre et le mot sous forme de base
 p_cell forme_flechie(t_tree tree, char* base){
     p_cell flechies;
     p_node temp,temp2;
     int i=0;
-    temp = CherchelettreRoot(tree,base[i],i);
+
+    temp = CherchelettreRoot(tree,base[i],i); //On cherche la première lettre dans le root de l'arbre
     i++;
-    while(base[i]!='\0'){
-        temp2 = Cherchelettre(temp, base[i],0);
-        if (temp2==NULL)
-        {
-            i++;
-        }
-        else
+
+    while(base[i]!='\0')
+    {
+        temp2 = Cherchelettre(temp, base[i],0); // on, cherche la lettre suivante dans les enfants du noeud où on se situe
+
+        if (temp2!=NULL) // si un enfant contenant la i lettre de base existe on déplace dans se noeud et on cherche le suivant
         {
             temp=temp2;
             i++;
         }
     }
-    flechies=temp->pointeur;
+    flechies=temp->pointeur; //on donne le pointeur à fléchies qui sera la cellule contenant le mot flechies et le type
     return flechies;
 }
 
-
-void type1(t_tree nom, t_tree vb, t_tree adj)
+//fonction qui permet de générer une phrase du premier modèle, il prend en paramètre les arbres nom, verbe et adjectif
+void phrase_modele1(t_tree nom, t_tree vb, t_tree adj)
 {
-    srand((unsigned) time(NULL));
+    srand((unsigned) time(NULL)); //fonction random
+
     char temp_conjugaison[4];
     char temp_nombre[3];
+    int i = 1;
+
+    //on alloue de la mémoire au différentes variables
     char *nom1=(char *) malloc(35*sizeof(char ));
     char *nom2=(char *) malloc(35*sizeof(char ));
     char *verbe=(char *) malloc(35*sizeof(char ));
     char *adjectif=(char *) malloc(35*sizeof(char ));
-    char *phrase = NULL;
+
     char *type_nom1=(char *) malloc(50*sizeof(char ));
     char *type_nom2=(char *) malloc(50*sizeof(char ));
+
+    //On extrait aléatoirement des mots à partir de l'arbre de leur type
     nom1 = extractinatorbase(nom);
     nom2 = extractinatorbase(nom);
     verbe = extractinatorbase(vb);
     adjectif = extractinatorbase(adj);
+
+    //cellule temporaire
     p_cell temp;
+
+    //On récupère les formes fléchies
     p_cell verbefl = forme_flechie(vb, verbe);
     p_cell adjectif_fl = forme_flechie(adj, adjectif);
     p_cell nom1fl = forme_flechie(nom, nom1);
     p_cell nom2fl = forme_flechie(nom, nom2);
 
-    int i = 1;
 
+    //On prends une forme fléchie aléatoire du premier nom
     if (nom1fl!=NULL){
         while (i != 0) {
             if (nom1fl->next==NULL) {
@@ -124,6 +136,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
 
     i=1;
 
+    //On prends une forme fléchie aléatoire du deuxième nom
     if (nom2fl!=NULL)
     {
         while (i != 0)
@@ -144,6 +157,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
 
     int j=0,x=0;
 
+    //On sépare le type (Mas,Fem) avec leurs nombres(Mas,Pl) du premier nom car c'est sur lui que vont se conjuger le verbe et l'adjectif
     for ( i = 0; type_nom1[i]!='\0' ; i++)
     {
         if(type_nom1[i]!='+')
@@ -164,11 +178,12 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
     temp_nombre[x]='\0';
 
 
-    t_std_list forme_flechie_verb;
+    t_std_list forme_flechie_verb;//liste contenant toutes les formes des verbes pouvant convenir
     forme_flechie_verb.head=NULL;
     p_cell tmp = NULL;
     int premier_trouve=0,compteur_ver=0;
 
+    //tant qu'il n'a pas trouver une forme convenable il va continuer
     while(compteur_ver==0)
     {
         temp=verbefl;
@@ -185,8 +200,9 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
                         {
                             if(temp->type[x]=='3')
                             {
-                                if(premier_trouve==0)
+                                if(premier_trouve==0) //on teste si c'est le premier à être ajouté à la liste
                                 {
+                                    //ajoute les verbes de bonnes formes
                                     forme_flechie_verb.head=temp;
                                     tmp=forme_flechie_verb.head;
                                     forme_flechie_verb.head->next=NULL;
@@ -210,6 +226,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
             temp=temp->next;
         }
 
+        //on change de verbe si on ne trouve pas de bonne forme
         if(compteur_ver==0)
         {
             verbe = extractinatorbase(vb);
@@ -223,6 +240,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
     int ajoutinvariable=0;
     int compteur_adj=0;
 
+    //tant qu'il n'a pas trouver une forme convenable il va continuer
     while(compteur_adj==0) {
 
         temp = adjectif_fl;
@@ -231,7 +249,8 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
         {
             for (i = 0; temp->type[i] != '\0'; i++) {
 
-                if ((temp->type[i] == temp_nombre[0]) || (temp->type[i] == 'I')) {
+                if ((temp->type[i] == temp_nombre[0]) || (temp->type[i] == 'I')) //(temp->type[i] == 'I') pour le cas où c'est un adjectif invariable
+                {
                     if (temp->type[i + 1] == temp_nombre[1] || (temp->type[i + 1] == 'n')) {
                         for (x = 0; temp->type[x] != '\0'; x++) {
                             if (temp->type[x] == temp_conjugaison[0]) {
@@ -258,7 +277,10 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
                                     tmp->next = NULL;
                                     premier_trouve = 1;
                                     compteur_adj += 1;
-                                } else {
+                                }
+
+                                else
+                                {
                                     tmp->next = temp;
                                     tmp = tmp->next;
                                     tmp->next = NULL;
@@ -278,6 +300,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
         }
     }
 
+    // s'il n'y a qu'un seul choix en print directement sinon on va choisir aléatoirement entre les formes qui convienne
     if(compteur_ver==1)
     {
 
@@ -288,6 +311,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
         }
         else
         {
+            //choix aléatoire
             tmp=forme_flechie_adj.head;
             int y=rand()%compteur_adj;
             for (int k = 0; k < y; k++)
@@ -300,6 +324,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
     }
     else if(compteur_adj==1)
     {
+        //choix aléatoire
         tmp=forme_flechie_verb.head;
         int y=rand()%compteur_ver;
         for (int k = 0; k < y; k++)
@@ -311,6 +336,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
     }
     else
     {
+        //choix aléatoire
         tmp=forme_flechie_verb.head;
         int y=rand()%compteur_ver;
         for (int k = 0; k < y; k++)
@@ -318,6 +344,7 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
             tmp=tmp->next;
         }
 
+        //choix aléatoire
         p_cell tmp2=forme_flechie_adj.head;
         int r=rand()%compteur_adj;
         for (int k = 0; k < r; k++)
@@ -328,7 +355,8 @@ void type1(t_tree nom, t_tree vb, t_tree adj)
     }
 }
 
-void type2(t_tree nom, t_tree vb, t_tree adj)
+//fonction qui permet de générer une phrase du deuxième modèle, il prend en paramètre les arbres nom, verbe et adjectif
+void phrase_modele2(t_tree nom, t_tree vb, t_tree adj)
 {
     char temp_conjugaison[4];
     char temp_nombre[3];
@@ -889,7 +917,8 @@ void type2(t_tree nom, t_tree vb, t_tree adj)
     }
 }
 
-void type3(t_tree nom, t_tree vb, t_tree adj,t_tree adv)
+//fonction qui permet de générer une phrase du troisième modèle, il prend en paramètre les arbres nom, verbe, adverbe et adjectif
+void phrase_modele3(t_tree nom, t_tree vb, t_tree adj,t_tree adv)
 {
     char temp_conjugaison[4];
     char temp_nombre[3];
@@ -1115,48 +1144,4 @@ void type3(t_tree nom, t_tree vb, t_tree adj,t_tree adv)
         }
         printf("%s %s %s %s\n",nom1,tmp->mot,adverbe,tmp2->mot);
     }
-}
-
-char** secateurstring(char* string,char delim){
-    char** output=(char **)malloc(sizeof (char*));
-    char* temp= (char *)malloc(sizeof (char));
-    int i=0;
-    int j=0;
-    int cpt=0;
-    while(string[i]!= '\0')
-    {
-        if (string[i] == delim){
-            temp[j]='\0';
-            output[cpt]=temp;
-            temp= (char *)malloc(sizeof (char));
-            j=0;
-            cpt++;
-        }else {
-            temp[j]=string[i];
-            j++;
-        }
-        i++;
-    }
-    temp[j]='\0';
-    output[cpt]=temp;
-    cpt++;
-    output[cpt]="~";
-    return output;
-}
-
-char* concatenation(char* bout1, char* bout2){
-    int i;
-    char *output = (char *)malloc(sizeof (char));
-
-    for (i=0;bout1[i]!='\0';i++){
-        output[i]=bout1[i];
-    }
-    output[i]=' ';
-    i++;
-    for (int j=0;bout2[j]!='\0';j++, i++){
-        output[i]=bout2[j];
-    }
-    output[i]='\0';
-
-    return output;
 }
