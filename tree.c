@@ -46,30 +46,93 @@ p_node CherchelettreRoot(t_tree pn,char lettre,int i)
     return NULL;
 }
 
-t_tree createfromEmptyTreeFromNode(char mot[35])
+t_tree createfromEmptyTreeFromNode(char mot[35],char type[35])
 {
     t_tree ps;
     ps=CreateEmptyTree();
-    ps.root[0] = Creearbre(ps.root[0],mot,0);
+    ps.root[0] = Creearbre(ps.root[0],mot,0,type);
     ps.nombre_pointeurs=1;
     return ps;
 }
 
-t_tree createTreeFromNode(t_tree t,char mot[35])
+t_tree createTreeFromNode(t_tree t,char mot[35],char type[35])
 {
     p_node temp;
     temp= CherchelettreRoot(t,mot[0],0);
     if (temp!=NULL)
     {
-        temp= Creearbre(temp,mot,1);
+        temp= Creearbre(temp,mot,1,type);
     }
     else
     {
-        t.root[t.nombre_pointeurs] = Creearbre(t.root[t.nombre_pointeurs],mot,0);
+        t.root[t.nombre_pointeurs] = Creearbre(t.root[t.nombre_pointeurs],mot,0,type);
         t.nombre_pointeurs+=1;
     }
 
     return t;
+}
+void recherche_flechie(t_tree arbre, char mot[25])
+{
+    int i = 0, taille_mot = 0;
+    int trouve = 0, num_cell = 0;
+    p_node pn;
+    p_node temp= CherchelettreRoot(arbre,mot[0],0);
+
+    if(temp!=NULL)
+    {
+        pn =trouver_flechie(temp, mot);
+    }
+
+    if(pn!=NULL)
+    {
+        p_cell cherche_mot = pn->pointeur;
+
+
+        while(mot[i]!='\0')
+        {
+            taille_mot++;
+            i++;
+        }
+
+        while ((cherche_mot != NULL) && trouve != 1)
+        {
+            i = 0;
+            int cpt = 0;
+            while (cherche_mot->mot[i] != '\0') {
+                if (cherche_mot->mot[i] == mot[i]) {
+                    cpt++;
+                } else {
+                    cpt--;
+                }
+                i++;
+            }
+
+            if (cpt == taille_mot) {
+                trouve = 1;
+            }
+            else
+            {
+                //printf("flechie suivant\n");
+                cherche_mot = cherche_mot->next;
+                num_cell ++;
+            }
+        }
+    }
+
+
+
+    if(trouve==1)
+    {
+        p_cell flechie = pn->pointeur;
+        for (int indice = 0; indice < num_cell; indice++) {
+            flechie = flechie->next;
+        }
+        printf("%s %s %s\n", flechie->mot, flechie->type, pn->mot_base);
+    }
+    else
+    {
+        printf("Nous n'avons pas trouver le mot\n");
+    }
 }
 
 void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_ver, t_tree arbre_adv)
@@ -109,7 +172,8 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     }
     montemp2 = CherchelettreRoot(arbre_adv,lemot[0],0);
     int lecompteur3=0;
-     if (montemp2!=NULL)
+
+    if (montemp2!=NULL)
     {
         lecompteur3 = compteur(montemp2, lemot);
         if (lecompteur3==1)
@@ -122,5 +186,4 @@ void type_mot(char lemot[35], t_tree arbre_nom, t_tree arbre_adj, t_tree arbre_v
     {
         printf("Le mot n'existe pas.\n");
     }
-
 }
