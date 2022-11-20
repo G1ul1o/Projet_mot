@@ -3,11 +3,12 @@
 #include "node.h"
 #include "liste.h"
 
-p_node createNode(char lettre)
+//Crée un noeud, elle prend en paramètre la lettre la lettre qu'elle contiendra
+p_node CreeNoeud(char lettre)
 {
     p_node nouv;
 
-    nouv = (p_node)malloc(sizeof(t_node));
+    nouv = (p_node)malloc(sizeof(t_node)); //On alloue de la mémoire
     nouv->value = lettre;
     for (int i = 0; i < 26; ++i)
     {
@@ -21,6 +22,7 @@ p_node createNode(char lettre)
     return nouv;
 }
 
+//On cherche la lettre dans les enfants d'un noeud, elle prend le noeud, la lettre, et l'indice du noeud a tester
 p_node Cherchelettre(p_node pn,char lettre,int i)
 {
     p_node temp;
@@ -50,8 +52,9 @@ p_node Cherchelettre(p_node pn,char lettre,int i)
     return NULL;
 }
 
-int trouver_mot(p_node pn, char cara[35], int numero_lettre) {
-    if (cara[numero_lettre] == '\0')
+//On cherche un mot dans un arbre, cette fonction prend en paramètre le noeud, la lettre et la position de la lettre à tester
+int trouver_mot(p_node pn, char mot[35], int numero_lettre) {
+    if (mot[numero_lettre] == '\0')
     {
         if(pn->fin_mot==1)
         {
@@ -62,15 +65,16 @@ int trouver_mot(p_node pn, char cara[35], int numero_lettre) {
             return -1;
         }
     }
-    p_node temp = Cherchelettre(pn, cara[numero_lettre], 0);
+    p_node temp = Cherchelettre(pn, mot[numero_lettre], 0);
     int compteur;
     if (temp != NULL)
     {
-        compteur = trouver_mot(temp, cara, numero_lettre + 1) + 1;
+        compteur = trouver_mot(temp, mot, numero_lettre + 1) + 1;
         return compteur;
     }
 }
 
+//On vérifie que le compteur est égal à la taille du mot, cette fonction prend en paramètre le noeud, la lettre et la position de la lettre à tester
 int compteur(p_node pn, char cara[35])
 {
     int j = 0;
@@ -89,7 +93,8 @@ int compteur(p_node pn, char cara[35])
 
 }
 
-p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
+//On ajoute un noeud à l'arbre, cette fonction prend en paramètre un noeud, le mot, l'indice du mot et le type du mot
+p_node AjoutNoeud(p_node pn,char mot[35],int indicemot,char type[35])
 {
     p_node temp=NULL,temp2;
 
@@ -98,14 +103,14 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
         if (mot[indicemot]!='\0')
         {
 
-            temp= Cherchelettre(pn,mot[indicemot],0);
-            if (temp!=NULL)
+            temp= Cherchelettre(pn,mot[indicemot],0); //on cherche si la lettre existe déjà
+            if (temp!=NULL)//si oui on va se placer sur le noeud contenant la lettre
             {
-                temp=Creearbre(temp,mot,indicemot+1,type);
+                temp=AjoutNoeud(temp,mot,indicemot+1,type);
             }
-            else
+            else//sinon on crée le noeud
             {
-                p_node px=createNode(mot[indicemot]);
+                p_node px=CreeNoeud(mot[indicemot]);
                 if(pn->nombre_pointeur==0)
                 {
                     pn->lettres[0]=px;
@@ -117,14 +122,14 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
                     pn->lettres[pn->nombre_pointeur]=px;
                     pn->nombre_pointeur=pn->nombre_pointeur+1;
                 }
-                px= Creearbre(px,mot,indicemot+1,type);
+                px= AjoutNoeud(px,mot,indicemot+1,type);
             }
         }
-        else
+        else //on ajoute les fléchies
         {
             if(temp==NULL)
             {
-                t_std_list tempflechie=createt_std_listflechie();
+                t_std_list tempflechie=CreeListeFlechie();
                 FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
                 char flechie[30];
                 char base[30];
@@ -166,7 +171,7 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
                     }
                     result=0;
                 }
-                pn->pointeur = tempflechie.head;
+                pn->pointeur = tempflechie.head; //on ajoute au pointeur du noeud un pointeur vers la liste
                 pn->fin_mot=1;
                 pn->nombre_forme_flechies=nombreflechie;
                 mot_total *motbase=(mot_total *)malloc(sizeof(mot_total));
@@ -181,16 +186,17 @@ p_node Creearbre(p_node pn,char mot[35],int indicemot,char type[35])
             }
         }
     }
-    else
+    else //si l'arbre ne contient pas la première lettre du mot, on l'a créée ici
     {
-        p_node px=createNode(mot[indicemot]);
+        p_node px=CreeNoeud(mot[indicemot]);
         pn=px;
-        px= Creearbre(px,mot,indicemot+1,type);
+        px= AjoutNoeud(px,mot,indicemot+1,type);
     }
     return pn;
 
 }
 
+//Fonction pour trouver le fléchie, elle prend en paramètre un neoud et le mot
 p_node trouver_flechie(p_node pn, char mot[25])
 {
     int i = 0, taille_mot = 0;
@@ -235,7 +241,7 @@ p_node trouver_flechie(p_node pn, char mot[25])
 
     for(int j=0; j < pn->nombre_pointeur; j++)
     {
-        p_node tmp = trouver_flechie(pn->lettres[j], mot);
+        p_node tmp = trouver_flechie(pn->lettres[j], mot); //pour parcourir touts les noeuds
 
         if (tmp != NULL)
         {
