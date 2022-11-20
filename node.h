@@ -24,16 +24,18 @@ typedef struct s_node t_node, *p_node;
 
 
 
-p_node createNode(char);
+p_node CreeNoeud(char);
 
 p_node Cherchelettre(p_node,char,int);
 
-p_node Creearbre(p_node,char[35],int,char[35]);
+p_node AjoutNoeud(p_node,char[35],int,char[35]);
 
 int trouver_mot(p_node pn, char* cara, int numero_lettre);
 
 int compteur(p_node pn, char cara[35]);
 
 p_node trouver_flechie(p_node pn, char mot[25]);
+
+
 
 #endif //PROJET_MOT_NODE_H
