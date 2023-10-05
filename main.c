@@ -12,10 +12,25 @@ int main()
 
     FILE *dicofile = fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
 
+
+    t_tree arbre_nom,arbre_ver,arbre_adj,arbre_adv,arbre_abr,arbre_int;
+    FILE* dicofile= fopen("C:\\Users\\giuga\\CLionProjects\\Projet mot\\dico_10_lignes.txt", "r");
+    char flechie[35];
+    char base[35];
+    char formes[35];
+    char type[35];
+    int creation_arbrenom=0;
+    int creation_arbreadj=0;
+    int creation_arbreadv=0;
+    int creation_arbreverb=0;
+    int creation_arbreabr=0;
+    int creation_arbreint=0;
+
     char flechie[35];
     char base[35];
     char formes[50];
     char type[50];
+
 
     int creation_arbrenom = 0;
     int creation_arbreadj = 0;
@@ -59,17 +74,55 @@ int main()
                     } else {
                         arbre_adv = AjoutNoeudArbre(arbre_adv, base,type);
                     }
+
+                    else
+                    {
+                        arbre_adv= createTreeFromNode(arbre_adv,base);
+                    }
+                }
+                else if (type[1]=='j')
+                {
+                    if (creation_arbreadj==0)
+                    {
+                        arbre_adj=createfromEmptyTreeFromNode(base);
+
                 } else {
                     if (creation_arbreadj == 0) {
                         arbre_adj = PremierNoeud(base,type);
+
                         creation_arbreadj++;
                     } else {
                         arbre_adj = AjoutNoeudArbre(arbre_adj, base,type);
                     }
                 }
+                else
+                {
+                    if (creation_arbreabr==0)
+                    {
+                        arbre_abr=createfromEmptyTreeFromNode(base);
+                        creation_arbreabr++;
+                    }
+                    else
+                    {
+                        arbre_abr= createTreeFromNode(arbre_abr,base);
+                    }
+                }
 
+            }            else if (type[0]=='I')
+            {
+                if (creation_arbreint==0)
+                {
+                    arbre_int=createfromEmptyTreeFromNode(base);
+                    creation_arbreint++;
+                }
+                else
+                {
+                    arbre_int= createTreeFromNode(arbre_int,base);
+                }
             }
+
         }
+
 
     }
     fclose(dicofile);
