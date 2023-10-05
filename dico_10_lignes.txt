@@ -165,7 +165,7 @@ fut	etre	Ver:IPSim+SG+P3
 fut	etre	Ver:SImp+SG+P3
 imperatrice	empereur	Nom:Fem+SG
 imperatrices	empereur	Nom:Fem+PL
-
+=======
 abjectement    abjectement    Adv
 stabilimetre	stabilimetre	Nom:Mas+SG
 stabilisaient	stabiliser	Ver:IImp+PL+P3
@@ -175,31 +175,6 @@ stabilisait	stabiliser	Ver:IImp+SG+P3
 stabilisames	stabiliser	Ver:IPSim+PL+P1
 stabilisant	stabilisant	Adj:Mas+SG
 stabilisant	stabilisant	Nom:Mas+SG
-
-stabilisant	stabiliseras	Ver:PPre
-stabilisassent	stabiliserape	Ver:SImp+PL+P3
-vacances	vacance	Nom:Fem+PL
-vacances	vacances	Nom:Fem+PL
-vacance	vacance	Nom:Fem+SG
-vacanciers	vacancier	Adj:Mas+PL
-vacanciers	vacancier	Nom:Mas+PL
-vacancier	vacancier	Adj:Mas+SG
-vacancier	vacancier	Nom:Mas+SG
-vacantes	vacant	Adj:Fem+PL
-vacante	vacant	Adj:Fem+SG
-vacants	vacant	Adj:Mas+PL
-vacant	vacant	Adj:Mas+SG
-vacarmes	vacarme	Nom:Mas+PL
-vacarme	vacarme	Nom:Mas+SG
-vacataires	vacataire	Adj:InvGen+PL
-vacataires	vacataire	Nom:InvGen+PL
-vacataire	vacataire	Adj:InvGen+SG
-vacataire	vacataire	Nom:InvGen+SG
-vacations	vacation	Nom:Fem+PL
-vacation	vacation	Nom:Fem+SG
-vaccaire	vaccaire	Nom:Fem+SG
-vaccinable	vaccinable	Adj:InvGen+SG
-vaccinaient	vacciner	Ver:IImp+PL+P3
 stabilisant	stabiliser	Ver:PPre
 stabilisassent	stabiliser	Ver:SImp+PL+P3
 utilisees	utiliser	Ver:PPas+Fem+PL
@@ -241,4 +216,3 @@ utilisassiez	utiliser	Ver:SImp+PL+P2
 utilisassions	utiliser	Ver:SImp+PL+P1
 utilisas	utiliser	Ver:IPSim+SG+P2
 utilisates	utiliser	Ver:IPSim+PL+P2
-
